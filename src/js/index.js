@@ -8,21 +8,46 @@ import '../scss/main.scss';
 
 console.log('HELLO 🚀')
 
-const img = document.querySelector('.slider');
-const h1 = document.querySelector('h1');
-
+const image = document.querySelector('img.slider');
+const h1 = document.querySelector('h1.slider');
+const dots = [...document.querySelectorAll('.dots span')];
 
 const slideList = [
     {
-        img: "../assets/img/img1.jpg",
+        img: "../src/assets/img/img1.jpg",
         text: "pierwszy text",
     },
     {
-        img: "../assets/img/img2.jpg",
+        img: "../src/assets/img/img2.jpg",
         text: "drugi text",
     },
     {
-        img: "../assets/img/img3.jpg",
+        img: "../src/assets/img/img3.jpg",
         text: "trzeci text",
     }
 ]
+
+const time = 2000; // banner img switch time
+let active = 0;  // first active img
+
+
+const changeDot = () => {
+const activeDot = dots.findIndex(dot => dot.classList.contains('active'));
+dots[activeDot].classList.remove('active');
+dots[active].classList.add('active');
+
+
+}
+
+const changeSlide = () => {
+    active++
+    if (active === (slideList.length)) {
+        active = 0;
+    }
+    image.src = slideList[active].img;
+    h1.textContent = slideList[active].text;
+    changeDot();
+}
+
+setInterval(changeSlide, time);
+
