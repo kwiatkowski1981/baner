@@ -28,9 +28,8 @@ const slideList = [
     }
 ]
 
-const time = 2000; // banner img switch time
+const time = 5000; // banner img switch time
 let active = 0;  // first active img
-
 
 const changeDot = () => {
     const activeDot = dots.findIndex(dot => dot.classList.contains('active'));
@@ -43,10 +42,10 @@ const changeSlide = () => {
     if (active === (slideList.length)) {
         active = 0;
     }
-    console.log(active);
     image.src = slideList[active].img;
     h1.textContent = slideList[active].text;
     changeDot();
+    console.log(active);
 }
 
 const keyChangeSlide = (e) => {
@@ -54,33 +53,34 @@ const keyChangeSlide = (e) => {
     if (!e) {
         changeSlide();
 
-    }
-    else if (e.keyCode === 39) {
+    } else if (e.keyCode === 39) {
         clearInterval(bannerInterval);
         changeSlide()
+        startInterval();
 
-    }
-    else if (e.keyCode === 37) {
+    } else if (e.keyCode === 37) {
         clearInterval(bannerInterval);
         --active
-        console.log(active);
         if (active === (slideList.length)) {
             active = 0;
-        }
-        else if(active < 0 ) {
-            active = 2;
+        } else if (active < 0) {
+            active = slideList.length -1;
         }
         image.src = slideList[active].img;
         h1.textContent = slideList[active].text;
         changeDot();
-
+        console.log(active);
+        startInterval();
     }
 
 
 }
+
+
+let bannerInterval;
+
+const startInterval = () => {
+    bannerInterval = setInterval(keyChangeSlide, time);
+}
 window.addEventListener('keydown', keyChangeSlide);
-
-const bannerInterval = setInterval(keyChangeSlide, time);
-
-
-
+startInterval();
