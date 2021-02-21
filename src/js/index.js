@@ -39,6 +39,10 @@ dots[active].classList.add('active');
 
 }
 
+const keyChangeSlide = () => {
+
+}
+
 const changeSlide = () => {
     active++
     if (active === (slideList.length)) {
